@@ -2,7 +2,7 @@ package com.example.umc9th.domain.member.entitiy;
 
 import com.example.umc9th.domain.member.enums.Gender;
 import com.example.umc9th.domain.member.enums.SocialType;
-import com.example.umc9th.global.entity.BaseEntity;
+import com.example.umc9th.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Getter
 @Table(name = "member")
 @EntityListeners(AuditingEntityListener.class)
-public class Member extends BaseEntity {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
