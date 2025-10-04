@@ -1,7 +1,7 @@
 package com.example.umc9th.domain.mission.entitiy;
 
 import com.example.umc9th.domain.store.entitiy.Store;
-import com.example.umc9th.global.entity.BaseEntity;
+import com.example.umc9th.global.entity.BaseCreatedEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Table(name = "mission")
 @EntityListeners(AuditingEntityListener.class)
-public class Mission   {
+public class Mission extends BaseCreatedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
