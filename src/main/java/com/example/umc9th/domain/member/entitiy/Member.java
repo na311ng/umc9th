@@ -43,17 +43,17 @@ public class Member extends BaseTimeEntity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_num")
+    @Column(name = "phone_num", length = 11)
     private String phoneNum;
 
     @Column(name = "social_uid")
     private String socialUid;
 
-    @Column(name = "social_type")
+    @Column(name = "social_type", columnDefinition = "ENUM('KAKAO', 'NAVER', 'APPLE', 'GOOGLE')")
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
-    @Column(name = "point", nullable = false)
+    @Column(name = "point", columnDefinition = "int default 0", nullable = false)
     @Builder.Default
     private Integer point = 0;
 
