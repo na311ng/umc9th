@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class MemberMissionResponse {
     private Long memberMissionId;
     private Long missionId;
-    private Long storeName; // 가게 이름 추가
+    private String storeName; // 가게 이름 추가
     private String conditional;
     private Integer point;
     private LocalDate duration;
