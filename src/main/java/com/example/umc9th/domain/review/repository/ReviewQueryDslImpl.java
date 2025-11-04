@@ -4,15 +4,15 @@ import com.example.umc9th.domain.review.entitiy.QReview;
 import com.example.umc9th.domain.review.entitiy.Review;
 import com.example.umc9th.domain.store.entitiy.QLocation;
 import com.example.umc9th.domain.store.entitiy.QStore;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
-@Service
+@Repository
 @RequiredArgsConstructor
 public class ReviewQueryDslImpl implements ReviewQueryDsl{
     private final ReviewRepository reviewRepository;
@@ -20,22 +20,18 @@ public class ReviewQueryDslImpl implements ReviewQueryDsl{
 
     // 검색 API
     @Override
-    public List<Review> searchReview(
-            Predicate predicate
-    ){
-        // JPA 세팅
+    public List<Review> searchReviews(BooleanBuilder builder){
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-
-        // Q클래스 선언
         QReview review = QReview.review;
         QStore store = QStore.store;
         QLocation location = QLocation.location;
 
         return queryFactory
                 .selectFrom(review)
-                .leftJoin(store).on(store.id.eq(review.store.id))
-                .leftJoin(location).on(location.id.eq(store.location.id))
-                .where(predicate)
+                .leftJoin(review.store, store).fetchJoin()
+                .leftJoin(store.location, location)
+                .where(builder)
+                .orderBy(review.createdAt.desc())
                 .fetch();
     };
 }

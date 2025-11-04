@@ -18,11 +18,13 @@ public class ReviewController {
         return reviewService.createReview(review);
     }
 
-    @GetMapping("/reviews/search")
+    @GetMapping("/my")
     public List<Review> searchReviews(
-            @RequestParam String query,
-            @RequestParam String type){
-        List<Review> result = reviewService.searchReview(query, type);
-        return result;
+            @RequestParam(required = false) String locationName,
+            @RequestParam(required = false) String storeName,
+            @RequestParam(required = false) Integer starRange,
+            @RequestParam Long memberId
+    ){
+        return reviewService.searchReviews(locationName, storeName, starRange, memberId);
     }
 }

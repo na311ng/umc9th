@@ -4,6 +4,7 @@ import com.example.umc9th.domain.review.entitiy.QReview;
 import com.example.umc9th.domain.review.entitiy.Review;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.example.umc9th.domain.store.entitiy.QLocation;
+import com.example.umc9th.domain.store.entitiy.QStore;
 import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,32 +16,49 @@ import java.util.List;
 public class ReviewService {
     private final ReviewRepository reviewRepository;
 
+    // 리뷰 작성
     public Review createReview(Review review){
         return reviewRepository.save(review);
     }
 
-    public List<Review> searchReview(String query, String type){
+    // 내가 작성한 리뷰 + 필터링
+    public List<Review> searchReviews(
+            String locationName,
+            String storeName,
+            Integer starRange,
+            Long memberId
+    ){
         QReview review = QReview.review;
+        QStore store = QStore.store;
         QLocation location = QLocation.location;
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        if(type.equals("location")){
-            builder.and(location.name.contains(query));
-        }
-        if(type.equals("star")){
-            builder.and(review.star.goe(Float.parseFloat(query)));
-        }
-        if(type.equals("both")){
-            String first = query.split("&")[0];
-            String second = query.split("&")[1];
-
-            builder.and(location.name.contains(first));
-            builder.and(review.star.goe(Float.parseFloat(second)));
+        //
+        if(locationName != null && locationName.isEmpty()){
+            builder.and(location.name.containsIgnoreCase(locationName));
         }
 
-        List<Review> reviewList = reviewRepository.searchReview(builder);
+        // 가게명 필터
+        if (storeName != null && !storeName.isEmpty()) {
+            builder.and(store.name.containsIgnoreCase(storeName));
+        }
 
-        return reviewList;
+        // 별점 필터
+        if (starRange != null) {
+            switch (starRange) {
+                case 5 -> builder.and(review.star.between(4.5, 5.0));
+                case 4 -> builder.and(review.star.between(3.5, 4.49));
+                case 3 -> builder.and(review.star.between(2.5, 3.49));
+                default -> builder.and(review.star.lt(2.5));
+            }
+        }
+
+        // 사용자 필터 (내 리뷰만)
+        if (memberId != null) {
+            builder.and(review.member.id.eq(memberId));
+        }
+
+        return reviewRepository.searchReviews(builder);
     }
 }
