@@ -1,6 +1,6 @@
 package com.example.umc9th.domain.mission.repository;
 
-import com.example.umc9th.domain.mission.dto.MemberMissionResponse;
+import com.example.umc9th.domain.mission.dto.res.MemberMissionResponse;
 import com.example.umc9th.domain.mission.entitiy.mapping.MemberMission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,6 +1,6 @@
 package com.example.umc9th.domain.mission.controller;
 
-import com.example.umc9th.domain.mission.dto.MemberMissionResponse;
+import com.example.umc9th.domain.mission.dto.res.MemberMissionResponse;
 import com.example.umc9th.domain.mission.service.MemberMissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
