@@ -22,7 +22,7 @@ public class MemberController {
         return memberService.getMemberProfile(id);
     }
 
-    @PostMapping
+    @PostMapping("/signup")
     public ApiResponse<MemberResDTO> createMember(@RequestBody MemberReqDTO memberReqDTO){
         return ApiResponse.onSuccess(
                 GeneralSuccessCode.CREATED,
