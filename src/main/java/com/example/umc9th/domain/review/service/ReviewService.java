@@ -1,13 +1,23 @@
 package com.example.umc9th.domain.review.service;
 
+import com.example.umc9th.domain.member.entitiy.Member;
+import com.example.umc9th.domain.member.repository.MemberRepository;
+import com.example.umc9th.domain.review.converter.ReviewConverter;
+import com.example.umc9th.domain.review.dto.req.ReviewCreateReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewCreateResDTO;
 import com.example.umc9th.domain.review.entitiy.QReview;
 import com.example.umc9th.domain.review.entitiy.Review;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.example.umc9th.domain.store.entitiy.QLocation;
 import com.example.umc9th.domain.store.entitiy.QStore;
+import com.example.umc9th.domain.store.entitiy.Store;
+import com.example.umc9th.domain.store.repository.StoreRepository;
+import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
+import com.example.umc9th.global.apiPayload.exception.GeneralException;
 import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
+    private final MemberRepository memberRepository;
+    private final StoreRepository storeRepository;
 
     // 리뷰 작성
     public Review createReview(Review review){
@@ -60,5 +72,19 @@ public class ReviewService {
         }
 
         return reviewRepository.searchReviews(builder);
+    }
+
+    // 리뷰 작성
+    @Transactional
+    public ReviewCreateResDTO createReview(ReviewCreateReqDTO dto) {
+        Member member = memberRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new GeneralException(GeneralErrorCode.NOT_FOUND));
+        Store store = storeRepository.findById(dto.getStoreId())
+                .orElseThrow(() -> new GeneralException(GeneralErrorCode.NOT_FOUND));
+
+        Review review = ReviewConverter.toEntity(dto, member, store);
+        Review saved = reviewRepository.save(review);
+
+        return ReviewConverter.toCreateResDTO(saved);
     }
 }
