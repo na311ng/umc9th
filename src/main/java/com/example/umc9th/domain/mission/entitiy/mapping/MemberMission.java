@@ -26,4 +26,7 @@ public class MemberMission {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id", nullable = false)
     private Mission mission;
+    public void markAsCompleted() {
+        this.isComplete = true;
+    }
 }
