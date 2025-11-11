@@ -8,4 +8,10 @@ public class TestConverter {
                 .testing(testing)
                 .build();
     }
+
+    public static TestResDTO.Exception toExceptionDTO(String testing){
+        return TestResDTO.Exception.builder()
+                .testString(testing)
+                .build();
+    }
 }
