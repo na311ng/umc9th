@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.review.dto.req;
+package com.example.umc9th.domain.store.dto.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewCreateReqDTO {
-    private String content;
-    private float star;
+public class StoreCreateReqDTO {
+    private String name;
+    private String address;
+    private String bossNumber;
 }

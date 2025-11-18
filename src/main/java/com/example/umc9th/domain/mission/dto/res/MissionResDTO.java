@@ -15,13 +15,15 @@ public class MissionResDTO {
     @Getter
     @Builder
     @AllArgsConstructor
-    public static class MissionHomeResDTO{
-        private Long missionId;
-        private String locationName;
-        private String storeName;
-        private String conditional;
-        private Integer point;
-        private LocalDate duration;
+    public static class MissionHomeResDTO {
+        private Long missionId;      // m.id
+        private String locationName; // l.name
+        private String storeName;    // s.name
+        private String missionName;  // m.missionName
+        private String conditional;  // m.conditional
+        private Integer point;       // m.point
+        private LocalDate startDate; // m.startDate
+        private LocalDate endDate;   // m.endDate
     }
 
     @Getter

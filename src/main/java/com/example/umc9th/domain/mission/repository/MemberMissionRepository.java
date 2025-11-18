@@ -14,9 +14,11 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
 select new com.example.umc9th.domain.mission.dto.res.MemberMissionResDTO(
     mm.id,
     m.id,
+    m.missionName,
     m.conditional,
     m.point,
-    m.duration,
+    m.startDate,
+    m.endDate,
     mm.isComplete,
     new com.example.umc9th.domain.mission.dto.res.MemberMissionResDTO.StoreInfo(
         s.id,

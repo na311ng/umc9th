@@ -1,9 +1,9 @@
 package com.example.umc9th.domain.store.repository;
 
-import com.example.umc9th.domain.store.entitiy.Store;
+import com.example.umc9th.domain.store.entitiy.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StoreRepository extends JpaRepository<Store, Long> {
+public interface LocationRepository extends JpaRepository<Location,Long> {
 }

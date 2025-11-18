@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.review.dto.req;
+package com.example.umc9th.domain.mission.dto.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewCreateReqDTO {
-    private String content;
-    private float star;
+public class MemberMissionChallengeReqDTO {
+    @Builder.Default
+    private boolean isComplete = false;
 }
