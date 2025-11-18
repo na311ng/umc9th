@@ -14,9 +14,11 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
             m.id,
             l.name,
             s.name,
+            m.missionName,
             m.conditional,
             m.point,
-            m.duration
+            m.startDate,
+            m.endDate
         )
         from Mission m
         join m.store s

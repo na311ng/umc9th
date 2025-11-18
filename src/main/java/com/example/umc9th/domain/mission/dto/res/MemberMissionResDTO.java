@@ -19,9 +19,11 @@ public class MemberMissionResDTO {
     public static class MemberMissionInfoDTO {
         private Long memberMissionId;
         private Long missionId;
+        private String missionName;
         private String conditional;
         private Integer point;
-        private String duration; // LocalDate → String 으로 포맷
+        private LocalDate startDate;
+        private LocalDate endDate;
         private boolean isComplete;
         private StoreInfo store;
     }
