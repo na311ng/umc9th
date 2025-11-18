@@ -12,6 +12,4 @@ import lombok.NoArgsConstructor;
 public class ReviewCreateReqDTO {
     private String content;
     private float star;
-    private Long userId;
-    private Long storeId;
 }
