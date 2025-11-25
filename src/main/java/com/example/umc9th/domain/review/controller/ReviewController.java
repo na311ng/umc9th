@@ -16,15 +16,24 @@ import java.util.List;
 @RequestMapping("/api/reviews")
 public class ReviewController {
     private final ReviewService reviewService;
+
+    // 리뷰 생성
+    @PostMapping
+    public ApiResponse<Review> createReview(@RequestBody Review review){
+        Review createdreview = reviewService.createReview(review);
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, createdreview);
+    }
+
     // 내 리뷰 조회
     @GetMapping("/my")
-    public List<Review> searchReviews(
+    public ApiResponse<List<Review>> searchReviews(
             @RequestParam(required = false) String locationName,
             @RequestParam(required = false) String storeName,
             @RequestParam(required = false) Integer starRange,
             @RequestParam Long memberId
     ){
-        return reviewService.searchReviews(locationName, storeName, starRange, memberId);
+        List<Review> reviews = reviewService.searchReviews(locationName, storeName, starRange, memberId);
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, reviews);
     }
 
 }

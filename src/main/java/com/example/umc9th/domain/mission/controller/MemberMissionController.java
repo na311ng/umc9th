@@ -16,30 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class MemberMissionController {
     private final MemberMissionService memberMissionService;
 
+    // 나의 미션 목록 조회
     @GetMapping("/my")
-    public ApiResponse<MemberMissionResDTO.MemberMissionPageDTO> getMyMissions(
-            @RequestParam(required = false) String status,
+    public ApiResponse<Page<MemberMissionResponse>>  getMyMissions(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
         Long loginMemberId = 1L; // TODO: 실제는 JWT 토큰에서 추출
-        Page<MemberMissionResDTO.MemberMissionInfoDTO> missionsPage =
-                memberMissionService.getMyMissions(loginMemberId, status, page, size);
-
-        return ApiResponse.onSuccess(
-                GeneralSuccessCode.OK,
-                MemberMissionResDTO.MemberMissionPageDTO.fromPage(missionsPage)
-        );
-    }
-
-    @PatchMapping("/{userMissionId}/complete")
-    public ApiResponse<MemberMissionCompleteResDTO> completeMission(
-            @PathVariable Long userMissionId,
-            @RequestBody MemberMissionCompleteReqDTO request
-    ){
-        return ApiResponse.onSuccess(
-                GeneralSuccessCode.OK,
-                memberMissionService.completeMission(userMissionId, request.isComplete())
-        );
+        Page <MemberMissionResponse> missions = memberMissionService.getMyMissions(loginMemberId, page, size);
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, missions);
     }
 }

@@ -18,18 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class MissionController {
     private final MissionService missionService;
 
+    // 지역별 미션 조회
     @GetMapping
-    public ApiResponse<MissionResDTO.MissionPageResDTO> getMissionsByLocation(
+    public ApiResponse<Page<MissionHomeResponse>>  getMissionsByLocation(
             @RequestParam Long locationId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        Page<MissionResDTO.MissionHomeResDTO> missionsPage =
-                missionService.getMissionsByLocation(locationId, PageRequest.of(page, size));
-
-        return ApiResponse.onSuccess(
-                GeneralSuccessCode.OK,
-                MissionResDTO.MissionPageResDTO.fromPage(missionsPage)
-        );
+        Page<MissionHomeResponse> missions = missionService.getMissionsByLocation(locationId, PageRequest.of(page, size));
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, missions);
     }
 }
