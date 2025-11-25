@@ -2,6 +2,8 @@ package com.example.umc9th.domain.review.controller;
 
 import com.example.umc9th.domain.review.entitiy.Review;
 import com.example.umc9th.domain.review.service.ReviewService;
+import com.example.umc9th.global.apiPayload.ApiResponse;
+import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +15,11 @@ import java.util.List;
 public class ReviewController {
     private final ReviewService reviewService;
 
+    // 리뷰 생성
     @PostMapping
-    public Review createReview(@RequestBody Review review){
-        return reviewService.createReview(review);
+    public ApiResponse<Review> createReview(@RequestBody Review review){
+        Review createdreview = reviewService.createReview(review);
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, createdreview);
     }
 
     @GetMapping("/my")
