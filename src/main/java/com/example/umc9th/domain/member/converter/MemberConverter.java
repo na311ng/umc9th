@@ -48,4 +48,17 @@ public class MemberConverter {
                 .userFood(foodNames)
                 .build();
     }
+
+    // Member만 있을 경우 Entity -> DTO
+    public static MemberResDTO toResDTO(Member member) {
+        return MemberResDTO.builder()
+                .name(member.getName())
+                .gender(member.getGender().name())
+                .birthday(member.getBirthday().toString())
+                .address(member.getAddress())
+                .detailAddress(member.getDetailAddress())
+                .userFood(null)
+                .build();
+    }
+
 }

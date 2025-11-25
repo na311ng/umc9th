@@ -10,6 +10,8 @@ import com.example.umc9th.domain.member.enums.FoodName;
 import com.example.umc9th.domain.member.repository.FoodRepository;
 import com.example.umc9th.domain.member.repository.MemberFoodRepository;
 import com.example.umc9th.domain.member.repository.MemberRepository;
+import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
+import com.example.umc9th.global.apiPayload.exception.GeneralException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +27,11 @@ public class MemberService {
     private final FoodRepository foodRepository;
     private final MemberFoodRepository memberFoodRepository;
 
-    public Optional<Member> getMemberProfile(Long id){
-        return memberRepository.findById(id);
+    public MemberResDTO getMemberProfile(Long id){
+
+        return memberRepository.findById(id)
+                .map(member -> MemberConverter.toResDTO(member))
+                .orElseThrow(()->new GeneralException(GeneralErrorCode.NOT_FOUND));
     }
 
     public MemberResDTO createMember(MemberReqDTO memberReqDTO){
