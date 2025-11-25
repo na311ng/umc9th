@@ -1,5 +1,7 @@
 package com.example.umc9th.domain.review.controller;
 
+import com.example.umc9th.domain.review.dto.req.ReviewCreateReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewCreateResDTO;
 import com.example.umc9th.domain.review.entitiy.Review;
 import com.example.umc9th.domain.review.service.ReviewService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
@@ -11,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/reviews")
+@RequestMapping("/api/reviews")
 public class ReviewController {
     private final ReviewService reviewService;
 
@@ -33,4 +35,5 @@ public class ReviewController {
         List<Review> reviews = reviewService.searchReviews(locationName, storeName, starRange, memberId);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, reviews);
     }
+
 }

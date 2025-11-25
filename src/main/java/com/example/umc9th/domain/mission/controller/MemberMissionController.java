@@ -1,19 +1,18 @@
 package com.example.umc9th.domain.mission.controller;
 
-import com.example.umc9th.domain.mission.dto.MemberMissionResponse;
+import com.example.umc9th.domain.mission.dto.req.MemberMissionCompleteReqDTO;
+import com.example.umc9th.domain.mission.dto.res.MemberMissionCompleteResDTO;
+import com.example.umc9th.domain.mission.dto.res.MemberMissionResDTO;
 import com.example.umc9th.domain.mission.service.MemberMissionService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/missions")
+@RequestMapping("/api/missions")
 public class MemberMissionController {
     private final MemberMissionService memberMissionService;
 

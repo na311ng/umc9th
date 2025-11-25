@@ -21,8 +21,14 @@ public class Mission extends BaseCreatedEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "duration", nullable = false)
-    private LocalDate duration;
+    @Column(name = "mission_name", nullable = false, length = 100)
+    private String missionName;
+
+    @Column(name = "start_date", nullable = false)
+    private LocalDate startDate;
+
+    @Column(name = "end_date", nullable = false)
+    private LocalDate endDate;
 
     @Column(name = "conditional", nullable = false)
     private String conditional;
