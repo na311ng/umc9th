@@ -1,5 +1,7 @@
 package com.example.umc9th.domain.review.controller;
 
+import com.example.umc9th.domain.review.dto.req.ReviewCreateReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewCreateResDTO;
 import com.example.umc9th.domain.review.entitiy.Review;
 import com.example.umc9th.domain.review.service.ReviewService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
@@ -17,9 +19,11 @@ public class ReviewController {
 
     // 리뷰 생성
     @PostMapping
-    public ApiResponse<Review> createReview(@RequestBody Review review){
-        Review createdreview = reviewService.createReview(review);
-        return ApiResponse.onSuccess(GeneralSuccessCode.OK, createdreview);
+    public ApiResponse<ReviewCreateResDTO> createReview(@RequestBody ReviewCreateReqDTO request){
+
+        return ApiResponse.onSuccess(
+                GeneralSuccessCode.OK,
+                reviewService.createReview(request));
     }
 
     // 내 리뷰 조회
