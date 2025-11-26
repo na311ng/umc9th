@@ -28,11 +28,6 @@ public class ReviewService {
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
 
-    // 리뷰 작성
-    public Review createReview(Review review){
-        return reviewRepository.save(review);
-    }
-
     @Transactional
     public ReviewCreateResDTO createReview(ReviewCreateReqDTO request){
         Member member = memberRepository.findById(request.getMemberId())

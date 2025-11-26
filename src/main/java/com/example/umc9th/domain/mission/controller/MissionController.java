@@ -1,17 +1,15 @@
 package com.example.umc9th.domain.mission.controller;
 
-import com.example.umc9th.domain.mission.dto.MissionHomeResponse;
+import com.example.umc9th.domain.mission.dto.req.MissionCreateReqDTO;
+import com.example.umc9th.domain.mission.dto.res.MissionCreateResDTO;
+import com.example.umc9th.domain.mission.dto.res.MissionHomeResponse;
 import com.example.umc9th.domain.mission.service.MissionService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,5 +26,17 @@ public class MissionController {
     ) {
         Page<MissionHomeResponse> missions = missionService.getMissionsByLocation(locationId, PageRequest.of(page, size));
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, missions);
+    }
+
+    // 가게에 미션 추가하기
+    @PostMapping("/{storeId}/missions")
+    public ApiResponse<MissionCreateResDTO> createMission(
+            @PathVariable Long storeId,
+            @RequestBody MissionCreateReqDTO dto
+    ){
+        return ApiResponse.onSuccess(
+                GeneralSuccessCode.CREATED,
+                missionService.createMission(storeId, dto)
+        );
     }
 }

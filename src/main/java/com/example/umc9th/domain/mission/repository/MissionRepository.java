@@ -1,6 +1,6 @@
 package com.example.umc9th.domain.mission.repository;
 
-import com.example.umc9th.domain.mission.dto.MissionHomeResponse;
+import com.example.umc9th.domain.mission.dto.res.MissionHomeResponse;
 import com.example.umc9th.domain.mission.entitiy.Mission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface MissionRepository extends JpaRepository<Mission, Long> {
     @Query("""
-        select new com.example.umc9th.domain.mission.dto.MissionHomeResponse(
+        select new com.example.umc9th.domain.mission.dto.res.MissionHomeResponse(
             m.id,
             l.name,
             s.name,
