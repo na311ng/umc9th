@@ -33,4 +33,6 @@ order by m.createdAt desc
             @Param("memberId") Long memberId,
             Pageable pageable
     );
+
+    boolean existsByMemberIdAndMissionId(Long memberId, Long missionId);
 }

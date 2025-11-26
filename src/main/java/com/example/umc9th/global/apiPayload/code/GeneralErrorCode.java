@@ -23,6 +23,9 @@ public enum GeneralErrorCode implements BaseErrorCode{
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,
             "COMMON500_1",
             "예기치 않은 서버 에러가 발생했습니다."),
+    DUPLICATE_RESOUCE(HttpStatus.CONFLICT,
+            "COMMON409_1",
+            "이미 존재하는 리소스입니다."),
     ;
 
     private final HttpStatus status;
