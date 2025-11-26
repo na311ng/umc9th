@@ -3,7 +3,6 @@ package com.example.umc9th.domain.mission.service;
 import com.example.umc9th.domain.mission.converter.MissionConverter;
 import com.example.umc9th.domain.mission.dto.req.MissionCreateReqDTO;
 import com.example.umc9th.domain.mission.dto.res.MissionCreateResDTO;
-import com.example.umc9th.domain.mission.dto.res.MissionHomeResponse;
 import com.example.umc9th.domain.mission.entitiy.Mission;
 import com.example.umc9th.domain.mission.repository.MissionRepository;
 import com.example.umc9th.domain.store.entitiy.Store;
@@ -11,30 +10,24 @@ import com.example.umc9th.domain.store.repository.StoreRepository;
 import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
 import com.example.umc9th.global.apiPayload.exception.GeneralException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
-public class MissionService {
+public class MissionCreateService {
+
     private final MissionRepository missionRepository;
     private final StoreRepository storeRepository;
 
-    public Page<MissionResDTO.MissionHomeResDTO> getMissionsByLocation(Long locationId, Pageable pageable) {
-        return missionRepository.findMissionsByLocationId(locationId, pageable);
-    }
-
     @Transactional
-    public MissionCreateResDTO createMission(Long storeId, MissionCreateReqDTO dto) {
+    public MissionCreateResDTO createMission(Long storeId, MissionCreateReqDTO dto){
         Store store = storeRepository.findById(storeId)
-                .orElseThrow(()->new GeneralException(GeneralErrorCode.NOT_FOUND));
+                .orElseThrow(()-> new GeneralException(GeneralErrorCode.NOT_FOUND));
 
         Mission mission = MissionConverter.toEntity(dto, store);
         Mission saved = missionRepository.save(mission);
 
-        return MissionConverter.toResDTO(saved);
+        return MissionConverter.toCreateResDTO(saved);
     }
 }

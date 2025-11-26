@@ -14,9 +14,11 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
             m.id,
             l.name,
             s.name,
+            m.missionName,
             m.conditional,
             m.point,
-            m.duration
+            m.startDate,
+            m.endDate
         )
         from Mission m
         join m.store s
@@ -24,7 +26,7 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
         where l.id = :locationId
         order by m.createdAt desc 
     """)
-    Page<MissionHomeResponse> findMissionsByLocationId(
+    Page<MissionResDTO.MissionHomeResDTO> findMissionsByLocationId(
             @Param("locationId") Long locationId,
             Pageable pageable
     );

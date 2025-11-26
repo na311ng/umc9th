@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/reviews")
+@RequestMapping("/api/reviews")
 public class ReviewController {
     private final ReviewService reviewService;
 
@@ -37,4 +37,5 @@ public class ReviewController {
         List<Review> reviews = reviewService.searchReviews(locationName, storeName, starRange, memberId);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, reviews);
     }
+
 }

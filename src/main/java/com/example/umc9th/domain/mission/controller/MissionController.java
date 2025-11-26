@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/missions")
+@RequestMapping("/api/missions")
 public class MissionController {
     private final MissionService missionService;
 
