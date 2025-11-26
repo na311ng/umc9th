@@ -26,7 +26,18 @@ public class MemberMission {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id", nullable = false)
     private Mission mission;
-    public void markAsCompleted() {
+
+    // 미션 시작
+    public static MemberMission start(Member member, Mission mission) {
+        return MemberMission.builder()
+                .member(member)
+                .mission(mission)
+                .isComplete(false)
+                .build();
+    }
+
+    // 미션 완료 처리
+    public void completeMission(){
         this.isComplete = true;
     }
 }

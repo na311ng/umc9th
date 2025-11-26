@@ -1,8 +1,8 @@
 package com.example.umc9th.domain.mission.controller;
 
-import com.example.umc9th.domain.mission.dto.req.MemberMissionCompleteReqDTO;
-import com.example.umc9th.domain.mission.dto.res.MemberMissionCompleteResDTO;
-import com.example.umc9th.domain.mission.dto.res.MemberMissionResDTO;
+import com.example.umc9th.domain.mission.dto.req.MemberMissionCreateReqDTO;
+import com.example.umc9th.domain.mission.dto.res.MemberMissionCreateResDTO;
+import com.example.umc9th.domain.mission.dto.res.MemberMissionResponse;
 import com.example.umc9th.domain.mission.service.MemberMissionService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
@@ -26,4 +26,17 @@ public class MemberMissionController {
         Page <MemberMissionResponse> missions = memberMissionService.getMyMissions(loginMemberId, page, size);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, missions);
     }
+
+    // 가게의 미션 도전하기
+    @PostMapping("/{missionId}/challenge")
+    public ApiResponse<MemberMissionCreateResDTO> challengeMission(
+            @PathVariable Long missionId,
+            @RequestBody MemberMissionCreateReqDTO request
+    ){
+        return ApiResponse.onSuccess(
+                GeneralSuccessCode.CREATED,
+                memberMissionService.challengeMission(missionId, request)
+        );
+    }
+
 }

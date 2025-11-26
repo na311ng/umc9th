@@ -1,15 +1,13 @@
 package com.example.umc9th.domain.review.dto.req;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Setter
 public class ReviewCreateReqDTO {
+    private Long storeId;
+    private Long memberId;
     private String content;
-    private float star;
+    private Float star;
 }

@@ -28,18 +28,19 @@ public class ReviewService {
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
 
-    // 리뷰 작성
     @Transactional
-    public ReviewCreateResDTO createReview(Long storeId, ReviewCreateReqDTO dto) {
-        Member member = memberRepository.findById(1L)
-                .orElseThrow(() -> new GeneralException(GeneralErrorCode.NOT_FOUND));
-        Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new GeneralException(GeneralErrorCode.NOT_FOUND));
+    public ReviewCreateResDTO createReview(ReviewCreateReqDTO request){
+        Member member = memberRepository.findById(request.getMemberId())
+                .orElseThrow(()->new GeneralException(GeneralErrorCode.NOT_FOUND));
 
-        Review review = ReviewConverter.toEntity(dto, member, store);
+        Store store = storeRepository.findById(request.getStoreId())
+                .orElseThrow(()-> new GeneralException(GeneralErrorCode.NOT_FOUND));
+
+        Review review = ReviewConverter.toEntity(request,member,store);
         Review saved = reviewRepository.save(review);
 
-        return ReviewConverter.toCreateResDTO(saved);
+        return ReviewConverter.toResDTO(saved);
+
     }
     // 내가 작성한 리뷰 + 필터링
     public List<Review> searchReviews(

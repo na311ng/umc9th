@@ -5,24 +5,27 @@ import com.example.umc9th.domain.mission.dto.res.MissionCreateResDTO;
 import com.example.umc9th.domain.mission.entitiy.Mission;
 import com.example.umc9th.domain.store.entitiy.Store;
 
+import java.time.LocalDate;
+
 public class MissionConverter {
 
+    // DTO -> Entity
     public static Mission toEntity(MissionCreateReqDTO dto, Store store){
         return Mission.builder()
-                .store(store)
-                .missionName(dto.getMissionName())
+                .duration(LocalDate.parse(dto.getDuration()))
                 .conditional(dto.getConditional())
                 .point(dto.getPoint())
-                .startDate(dto.getStartDate())
-                .endDate(dto.getEndDate())
+                .store(store)
                 .build();
     }
-
-    public static MissionCreateResDTO toCreateResDTO(Mission mission){
+    // Entity -> DTO
+    public static MissionCreateResDTO toResDTO(Mission mission){
         return MissionCreateResDTO.builder()
                 .missionId(mission.getId())
-                .storeId(mission.getStore().getId())
-                .message("가게 미션이 성공적으로 등록되었습니다.")
+                .storeName(mission.getStore().getName())
+                .duration(mission.getDuration().toString())
+                .conditional(mission.getConditional())
+                .point(mission.getPoint())
                 .build();
     }
 }

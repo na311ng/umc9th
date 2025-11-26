@@ -7,7 +7,8 @@ import com.example.umc9th.domain.review.entitiy.Review;
 import com.example.umc9th.domain.store.entitiy.Store;
 
 public class ReviewConverter {
-    public static Review toEntity(ReviewCreateReqDTO dto, Member member, Store store) {
+
+    public static Review toEntity(ReviewCreateReqDTO dto, Member member, Store store){
         return Review.builder()
                 .content(dto.getContent())
                 .star(dto.getStar())
@@ -16,10 +17,13 @@ public class ReviewConverter {
                 .build();
     }
 
-    public static ReviewCreateResDTO toCreateResDTO(Review review) {
+    public static ReviewCreateResDTO toResDTO(Review review){
         return ReviewCreateResDTO.builder()
                 .reviewId(review.getId())
-                .message("리뷰가 등록되었습니다.")
+                .storeName(review.getStore().getName())
+                .memberName(review.getMember().getName())
+                .content(review.getContent())
+                .star(review.getStar())
                 .build();
     }
 }

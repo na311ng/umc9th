@@ -5,10 +5,12 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class MissionCreateResDTO {
-    private Long missionId;
+public class MemberMissionCreateResDTO {
+    private Long memberMissionId;
+    private String memberName;
     private String storeName;
-    private String duration;
     private String conditional;
     private Integer point;
+    private String duration;
+    private Boolean isComplete;
 }
